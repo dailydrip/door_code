@@ -24,11 +24,11 @@ defmodule Door do
 
   def handle_event(:cast, {:press, digit}, :locked, {code, remaining, unlock_time}) do
     case remaining do
-      [digit] ->
+      [^digit] ->
         IO.puts "[#{digit}] Correct code.  Unlocked for #{unlock_time}"
         {:next_state, :open, {code, code, unlock_time}, unlock_time}
 
-      [digit|rest] ->
+      [^digit|rest] ->
         IO.puts "[#{digit}] Correct digit but not yet complete."
         {:next_state, :locked, {code, rest, unlock_time}}
 
